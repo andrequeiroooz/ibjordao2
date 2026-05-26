@@ -147,7 +147,6 @@ header {
 }
 
 /* Menu Mobile */
-/* Menu Mobile */
 @media (max-width: 991px) {
     /* 1. Estado inicial do menu (escondido, mas preparado para animar) */
     .nav-menu {
@@ -311,12 +310,27 @@ header {
         letter-spacing: 2px;
         margin-bottom: 1.5rem;
     }
+
     .hero h1 {
         font-size: clamp(2.5rem, 4vw, 3.5rem);
         font-family: var(--fonte-secundaria);
         font-weight: 800;
         line-height: 1.15;
         margin-bottom: 1.5rem;
+
+        /* 👇 ATUALIZADO: Ativa a animação de onda (duração de 5 segundos, contínua e suave) */
+        animation: ondaSuave 5s ease-in-out infinite;
+        display: inline-block; /* Garante o alinhamento correto do bloco na animação */
+    }
+
+    /* 👇 ADICIONADO: O cálculo matemático do movimento físico da onda */
+    @keyframes ondaSuave {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px); /* Sobe 10px no pico da onda */
+        }
     }
     .hero .frase-destaque { 
         font-size: 1.2rem;
@@ -353,12 +367,19 @@ header {
     .btn-outline:hover { background-color: #ffffff; color: var(--cor-primaria); }
 
     /* A Imagem no Desktop fica bonita cobrindo o card dela */
-
     .hero-imagem-wrapper {
-        height: 500px;
-        background-size: cover;
-        background-position: right center; /* <--- Alinha pela direita, mostrando as pessoas e escondendo o texto da imagem */
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            height: 500px;
+            background-size: cover;
+            background-position: right center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            
+            /* 👇 ADICIONADO: Prepara a imagem para um movimento super suave */
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
+    }
+    .hero-imagem-wrapper:hover {
+        transform: translateY(-10px) scale(1.02); /* Sobe 10px e dá um zoom de 2% */
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); /* Sombra fica mais espalhada e forte */
+        cursor: pointer; /* Muda a setinha do mouse para a "mãozinha" */
     }
 }
 
@@ -373,6 +394,25 @@ header {
 
 .sobre-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
 .sobre-texto p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #555; }
+
+.sobre-texto .titulo-secao {
+    display: inline-block; /* Faz o efeito focar apenas no tamanho real das letras */
+    transition: transform 0.3s ease, color 0.3s ease;
+    transform-origin: left center; /* No PC, faz a frase crescer a partir da esquerda */
+}
+
+/* Quando passar o mouse apenas em cima da frase */
+.sobre-texto .titulo-secao:hover {
+    transform: scale(1.05); /* Aumenta a frase em 5% */
+    color: var(--cor-destaque); /* Opcional: muda para o dourado terroso para dar um toque bem moderno */
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+    .sobre-texto .titulo-secao {
+        transform-origin: center center; /* No celular, faz crescer a partir do centro */
+    }
+}
 
 .simbolo-significado {
     background-color: #ffffff;
@@ -394,14 +434,12 @@ header {
     .sobre .detalhe-linha { margin-left: 0; }
 }
 
-/* =========================================
-   7. CULTOS E MINISTÉRIOS (CARDS)
-   ========================================= */
-/* =========================================
-   7. CULTOS E MINISTÉRIOS (CARDS COM CARROSSEL NO MOBILE)
-   ========================================= */
+
 /* =========================================
    7. CULTOS E MINISTÉRIOS (ORGANIZADO E ANIMADO)
+   ========================================= */
+/* =========================================
+   7. CULTOS E MINISTÉRIOS (COMPLETO E ANIMADO)
    ========================================= */
 .ministerios {
     padding: 5rem 0;
@@ -411,15 +449,17 @@ header {
 
 /* --- 📱 EXCLUSIVO PARA CELULAR E TABLET (ATÉ 991px) --- */
 @media (max-width: 991px) {
+    .ministerios {
+        overflow: hidden; 
+    }
+
     .cards-grid { 
         display: flex; 
-        overflow-x: auto; 
-        scroll-snap-type: x mandatory; 
+        overflow-x: auto; /* Devolve o poder de arrastar com o dedo */
         gap: 1.5rem; 
         padding: 1rem 1.5rem 2rem 1.5rem; 
-        margin: 0 -1.5rem; 
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch; 
+        margin: 0; 
+        /* Removida a animação CSS para o JavaScript assumir de forma inteligente */
     }
     
     .cards-grid::-webkit-scrollbar { 
@@ -427,12 +467,85 @@ header {
     }
 
     .card {
-        flex: 0 0 82%; 
-        scroll-snap-align: center;
-        opacity: 1 !important; /* Sempre 100% visível no celular para carregar instantâneo */
-        transform: none !important; /* Sem delay no toque do mobile */
+        width: 300px; 
+        flex-shrink: 0; 
+        opacity: 1 !important; 
+        transform: none !important; 
     }
 }
+/* --- 🌐 ESTILO BASE DOS CARDS (GERAL) --- */
+.card {
+        background-color: var(--cor-areia);
+        padding: 3rem 2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+}
+
+/* --- 🖥️ EXCLUSIVO PARA O COMPUTADOR (A PARTIR DE 992px) --- */
+@media (min-width: 992px) { 
+    .cards-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 2rem;
+        overflow-x: visible; 
+        margin: 0;
+        padding: 0;
+    } 
+
+    .card {
+        flex: none;
+        opacity: 0; /* Começa invisível para a animação do JS */
+        transform: translateY(50px); /* Começa mais abaixo */
+        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    background-color 0.4s ease, 
+                    box-shadow 0.4s ease, 
+                    border-color 0.4s ease;
+    }
+
+    .card.aparecer {
+        opacity: 1;
+        transform: translateY(0); /* JS aplica essa classe e o card sobe */
+    }
+
+    .card.aparecer:hover {
+        transform: translateY(-12px); 
+        box-shadow: 0 20px 40px rgba(27, 58, 87, 0.12);
+        background-color: #ffffff;
+        border-color: rgba(192, 160, 112, 0.3);
+    }
+}
+
+/* --- ÍCONES E TEXTOS INTERNOS DO CARD --- */
+.card-icon-container {
+    width: 70px; 
+    height: 70px;
+    background-color: rgba(27, 58, 87, 0.05);
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 1.5rem; 
+    transition: background-color 0.4s ease;
+}
+.card:hover .card-icon-container { background-color: var(--cor-primaria); }
+
+.card-icon-img {
+    height: 35px; 
+    width: 35px; 
+    object-fit: contain;
+    transition: filter 0.4s ease;
+    filter: invert(68%) sepia(16%) saturate(1065%) hue-rotate(354deg) brightness(88%) contrast(86%);
+}
+.card:hover .card-icon-img { filter: invert(1) brightness(2) !important; }
+
+.card h3 { color: var(--cor-primaria); font-size: 1.4rem; margin-bottom: 1rem; font-family: var(--fonte-secundaria); font-weight: 700; }
+.card p { color: #666666; font-size: 0.95rem; line-height: 1.6; }
 
 /* --- 🌐 ESTILO BASE DOS CARDS (GERAL) --- */
 .card {

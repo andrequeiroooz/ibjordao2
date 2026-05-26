@@ -12,11 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.nav-menu a');
 
     if (btnMenu && navMenu) {
-        // Evento para abrir/fechar o menu ao clicar no botão "Hambúrguer"
         btnMenu.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             
-            // Alterna o ícone visual entre ☰ e ✕ para ficar mais responsivo
             if (navMenu.classList.contains('active')) {
                 btnMenu.innerHTML = '✕';
                 btnMenu.setAttribute('aria-label', 'Fechar menu');
@@ -26,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Fechar o menu mobile automaticamente após clicar em um dos links
         menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navMenu.classList.contains('active')) {
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Fechar o menu mobile ao clicar fora dele (UX Premium)
         document.addEventListener('click', (event) => {
             const cliqueNoMenu = navMenu.contains(event.target);
             const cliqueNoBotao = btnMenu.contains(event.target);
@@ -49,34 +45,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================
-    // 2. ANIMAÇÃO DE REVEAL (CASCATA DOS CARDS)
+    // 2. ANIMAÇÃO DE REVEAL CARD A CARD (PC)
     // =========================================
     const cards = document.querySelectorAll('.card');
-    const containerGrid = document.querySelector('.cards-grid');
 
-    // Só ativa o observador se os elementos realmente existirem na página
-    if (cards.length > 0 && containerGrid) {
-        const dispararAnimacao = new IntersectionObserver((entries) => {
+    if (cards.length > 0) {
+        const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    
-                    // Executa o efeito cascata card por card com atraso (stagger)
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('aparecer');
-                        }, index * 120); // 120 milissegundos de intervalo
-                    });
-
-                    // Uma vez animado, desativa o observador para poupar memória
-                    dispararAnimacao.disconnect();
+                    entry.target.classList.add('aparecer');
+                    cardObserver.unobserve(entry.target); 
                 }
             });
         }, {
-            // Dispara quando 15% da seção de ministérios entra na tela
-            threshold: 0.15 
+            threshold: 0.1,             
+            rootMargin: '0px 0px -20px 0px' 
         });
 
-        // Inicia o monitoramento do grid de cards
-        dispararAnimacao.observe(containerGrid);
+        cards.forEach(card => cardObserver.observe(card));
+    }
+
+ // =========================================
+    // 3. ESTEIRA CONTÍNUA E ARRASTÁVEL (MOBILE)
+    // =========================================
+    const gridCards = document.querySelector('.cards-grid');
+    
+    if (gridCards && cards.length > 0) {
+        let isPaused = false;
+        let posicaoExata = gridCards.scrollLeft; // Cria a memória para aceitar números quebrados
+
+        function scrollContinuo() {
+            if (!isPaused && window.innerWidth < 992) {
+                
+                // 👇 Aqui você pode colocar 0.3, 0.5, 0.2... Agora ele aceita qualquer velocidade lenta!
+                posicaoExata += 0.3; 
+                
+                // Passa o valor acumulado para a barra de rolagem
+                gridCards.scrollLeft = posicaoExata; 
+                
+                if (gridCards.scrollLeft >= (gridCards.scrollWidth - gridCards.clientWidth) - 1) {
+                    posicaoExata = 0; // Zera a memória ao voltar para o começo
+                    gridCards.scrollLeft = 0; 
+                }
+            }
+            requestAnimationFrame(scrollContinuo);
+        }
+
+        scrollContinuo();
+
+        gridCards.addEventListener('touchstart', () => {
+            isPaused = true; 
+        }, { passive: true });
+        
+        gridCards.addEventListener('touchend', () => {
+            setTimeout(() => {
+                // Quando o visitante solta o dedo, avisamos o JavaScript onde a barra parou
+                posicaoExata = gridCards.scrollLeft; 
+                isPaused = false;
+            }, 1000); 
+        }, { passive: true });
     }
 });
