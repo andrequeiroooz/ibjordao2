@@ -113,8 +113,24 @@ header {
     position: relative;
 }
 
-.logo img { width: 200px; }
+/* =========================================
+   ANIMAÇÃO DE PULSO NA LOGO
+   ========================================= */
+.logo img {
+    /* Ativa a animação contínua (duração de 4 segundos) */
+    width: 200px; 
+    animation: pulsoLogo 4s ease-in-out infinite;
+}
 
+/* A matemática do movimento (respiração suave) */
+@keyframes pulsoLogo {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.04); /* Cresce apenas 4% no pico para ficar sofisticado */
+    }
+}
 .hamburger {
     margin: 20px;
     font-size: 1.8rem;
