@@ -147,36 +147,105 @@ header {
 }
 
 /* Menu Mobile */
+/* Menu Mobile */
 @media (max-width: 991px) {
-    .nav-menu.active,
-    .nav-menu.show,
-    .nav-menu[style*="display: flex"] {
-        display: flex !important;
+    /* 1. Estado inicial do menu (escondido, mas preparado para animar) */
+    .nav-menu {
+        display: flex !important; /* Mantém como flex para a animação funcionar */
         flex-direction: column !important;
         align-items: center;
         width: 100%;
         background-color: #ffffff;
         position: absolute;
-        top: 100%; left: 0;
-        padding: 1.5rem 0;
+        top: 100%; 
+        left: 0;
+        padding: 0.9rem 0;
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-        gap: 1rem;
         z-index: 999;
+        
+        /* O SEGREDO DA ANIMAÇÃO: invisível e levemente levantado */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-15px);
+        /* Aqui você controla a lentidão (0.5s é um tempo excelente) */
+        transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s; 
     }
-    .nav-menu ul { display: flex; flex-direction: column !important; align-items: center; width: 100%; padding: 0; margin: 0; gap: 1rem; }
-    .nav-menu li { width: 100%; text-align: center; }
-    .nav-menu a { font-size: 18px; font-weight: 700; color: var(--cor-primaria); display: block; padding: 0.6rem; width: 100%; }
-    .btn-bemvindo { width: 85%; margin-top: 0.5rem; }
-}
 
+    /* 2. Quando o menu recebe a classe ativa pelo JavaScript */
+    .nav-menu.active,
+    .nav-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0); /* Desce para a posição normal suavemente */
+    }
+
+    .nav-menu ul { 
+        display: flex; 
+        /*flex-direction: column;*/ /* Tem que ser coluna no celular para não quebrar */
+        align-items: center; 
+        width: 100%; 
+        padding: 0; 
+        margin: 0; 
+    }
+
+    .nav-menu li { width: 100%; text-align: center; }
+    
+    .nav-menu a { 
+        font-size: 18px; 
+        font-weight: 700; 
+        color: var(--cor-primaria); 
+        display: block; 
+        padding: 0.6rem; 
+        width: 100%; 
+    }
+    
+    .btn-bemvindo { 
+        width: 85%; 
+        margin-top: 0.5rem; 
+    }
+}
+/* Menu Desktop */
 /* Menu Desktop */
 @media (min-width: 992px) {
     .hamburger { display: none; }
     .nav-menu { display: flex !important; width: auto; flex-direction: row; align-items: center; }
-    .nav-menu ul { display: flex; flex-direction: row; gap: 1.5rem; }
-    .nav-menu a { font-size: 19px; font-weight: 700; padding: 0.5rem 1rem; }
-}
+    .nav-menu ul { display: flex; flex-direction: row; gap: 1.5rem; margin-right: 1.5rem; }
+    
+    /* Configuração dos links de texto (Início, Sobre, etc) */
+    .nav-menu ul li a { 
+        font-size: 19px; 
+        font-weight: 700; 
+        padding: 0.5rem 0.2rem; 
+        color: var(--cor-primaria);
+        position: relative; /* Necessário para criar a linha animada */
+        transition: color 0.3s ease;
+        display: inline-block;
+    }
 
+    /* 1. Muda a cor para o dourado ao passar o mouse */
+    .nav-menu ul li a:hover {
+        color: var(--cor-destaque);
+    }
+
+    /* 2. Cria a linha moderna escondida (tamanho zero) embaixo do texto */
+    .nav-menu ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 3px;
+        bottom: 0px; 
+        left: 50%;
+        background-color: var(--cor-destaque);
+        transition: all 0.3s ease-in-out;
+        transform: translateX(-50%); /* Garante que ela cresça a partir do centro */
+        border-radius: 2px;
+    }
+
+    /* 3. Faz a linha crescer até 100% da largura da palavra no hover */
+    .nav-menu ul li a:hover::after {
+        width: 100%;
+    }
+}
 /* =========================================
    5. SEÇÃO HERO (RESPEITANDO SEU PEDIDO)
    ========================================= */
@@ -328,44 +397,113 @@ header {
 /* =========================================
    7. CULTOS E MINISTÉRIOS (CARDS)
    ========================================= */
+/* =========================================
+   7. CULTOS E MINISTÉRIOS (CARDS COM CARROSSEL NO MOBILE)
+   ========================================= */
+/* =========================================
+   7. CULTOS E MINISTÉRIOS (ORGANIZADO E ANIMADO)
+   ========================================= */
 .ministerios {
     padding: 5rem 0;
     background-color: #ffffff;
     scroll-margin-top: 90px;
 }
 
-.cards-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+/* --- 📱 EXCLUSIVO PARA CELULAR E TABLET (ATÉ 991px) --- */
+@media (max-width: 991px) {
+    .cards-grid { 
+        display: flex; 
+        overflow-x: auto; 
+        scroll-snap-type: x mandatory; 
+        gap: 1.5rem; 
+        padding: 1rem 1.5rem 2rem 1.5rem; 
+        margin: 0 -1.5rem; 
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; 
+    }
+    
+    .cards-grid::-webkit-scrollbar { 
+        display: none; 
+    }
 
+    .card {
+        flex: 0 0 82%; 
+        scroll-snap-align: center;
+        opacity: 1 !important; /* Sempre 100% visível no celular para carregar instantâneo */
+        transform: none !important; /* Sem delay no toque do mobile */
+    }
+}
+
+/* --- 🌐 ESTILO BASE DOS CARDS (GERAL) --- */
 .card {
     background-color: var(--cor-areia);
     padding: 3rem 2rem;
     border-radius: 12px;
     text-align: center;
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.02);
-    display: flex; flex-direction: column; align-items: center;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 35px rgba(27, 58, 87, 0.08);
-    background-color: #ffffff;
-    border-color: rgba(192, 160, 112, 0.2);
+/* --- 🖥️ EXCLUSIVO PARA O COMPUTADOR (A PARTIR DE 992px) --- */
+@media (min-width: 992px) { 
+    .cards-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas perfeitas */
+        gap: 2rem;
+        overflow-x: visible; 
+        margin: 0;
+        padding: 0;
+    } 
+
+    /* Estado inicial no PC: bem escondido e mais abaixo para o efeito ser nítido */
+    .card {
+        flex: none;
+        scroll-snap-align: none;
+        opacity: 0;
+        transform: translateY(50px); /* Aumentado para 50px para dar mais impacto ao movimento */
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    background-color 0.4s ease, 
+                    box-shadow 0.4s ease, 
+                    border-color 0.4s ease;
+    }
+
+    /* Quando o JS ativa o card no scroll */
+    .card.aparecer {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Interação premium ao passar o mouse (só funciona pós-surgimento) */
+    .card.aparecer:hover {
+        transform: translateY(-12px); 
+        box-shadow: 0 20px 40px rgba(27, 58, 87, 0.12);
+        background-color: #ffffff;
+        border-color: rgba(192, 160, 112, 0.3);
+    }
 }
 
+/* --- ÍCONES E TEXTOS INTERNOS DO CARD --- */
 .card-icon-container {
-    width: 70px; height: 70px;
+    width: 70px; 
+    height: 70px;
     background-color: rgba(27, 58, 87, 0.05);
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.5rem; transition: background-color 0.4s ease;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 1.5rem; 
+    transition: background-color 0.4s ease;
 }
-
 .card:hover .card-icon-container { background-color: var(--cor-primaria); }
 
 .card-icon-img {
-    height: 35px; width: 35px; object-fit: contain;
+    height: 35px; 
+    width: 35px; 
+    object-fit: contain;
     transition: filter 0.4s ease;
     filter: invert(68%) sepia(16%) saturate(1065%) hue-rotate(354deg) brightness(88%) contrast(86%);
 }
@@ -373,9 +511,6 @@ header {
 
 .card h3 { color: var(--cor-primaria); font-size: 1.4rem; margin-bottom: 1rem; font-family: var(--fonte-secundaria); font-weight: 700; }
 .card p { color: #666666; font-size: 0.95rem; line-height: 1.6; }
-
-@media (min-width: 768px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-
 /* =========================================
    8. CONVITE E LOCALIZAÇÃO (NOVO)
    ========================================= */
