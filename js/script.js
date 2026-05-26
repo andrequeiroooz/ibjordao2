@@ -23,4 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 4. Fechar o menu mobile ao clicar fora dele (UX Premium)
+    document.addEventListener('click', (event) => {
+        const cliqueNoMenu = navMenu.contains(event.target);
+        const cliqueNoBotao = btnMenu.contains(event.target);
+
+        // Se o menu estiver aberto e o clique não foi nem no botão e nem dentro do menu, ele fecha
+        if (!cliqueNoMenu && !cliqueNoBotao && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+        }
+    });
 });

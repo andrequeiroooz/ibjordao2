@@ -16,16 +16,32 @@
 <body>
 
     <!-- =========================================
+         TOPBAR (CONVITE IMEDIATO - APARECE NO PC)
+         ========================================= -->
+<div class="topbar">
+        <div class="container topbar-content">
+            <p>
+                <img src="img/pin.png" alt="Localização" class="topbar-icon"> 
+                <span>Av. Sr. do Bonfim, 5221 - Potengi</span>
+            </p>
+            <p>
+                <img src="img/data.png" alt="Horários" class="topbar-icon"> 
+                <span>Domingos às 09h e 18h30 | Quartas às 20h</span>
+            </p>
+            <a href="#visita" class="topbar-link">Planeje sua visita →</a>
+        </div>
+    </div>
+    <!-- =========================================
          HEADER E NAVEGAÇÃO
          ========================================= -->
     <header>
         <div class="container header-content">
             <!-- Logo -->
             <div class="logo">
-                <img src="img/Horizontal 2.png" alt="">
+                <img src="img/Horizontal 2.png" alt="Logo Igreja Batista Jordão">
             </div>
 
-            <!-- Botão Menu Mobile (Agora controlado por JS) -->
+            <!-- Botão Menu Mobile -->
             <button class="hamburger" id="btn-menu" aria-label="Abrir menu">
                 ☰
             </button>
@@ -36,22 +52,36 @@
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#ministerios">Ministérios</a></li>
-                    <li><a href="#cultos">Cultos</a></li>
-                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="#visita">Localização</a></li>
                 </ul>
-                <a href="#contato" class="btn btn-bemvindo">Seja Bem-vindo</a>
+                <a href="#visita" class="btn btn-bemvindo">Seja Bem-vindo</a>
             </nav>
         </div>
     </header>
 
     <!-- =========================================
-         HERO SECTION (TOPO IMPACTANTE)
+         HERO SECTION (TOPO)
          ========================================= -->
     <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>Onde a fé abre o caminho.</h1>
-            <p class="frase-destaque">Experimente o amor, o acolhimento e a transformação.</p>
-            <a href="#cultos" class="btn">Nossos Cultos</a>
+        <div class="container hero-container">
+            
+            <!-- TEXTO: Ficará escondido no celular conforme seu pedido, e visível no PC -->
+            <div class="hero-texto">
+                <span class="hero-tagline">Igreja Batista Jordão</span>
+                <h1>Sinta-se em casa.<br>Onde a fé abre o caminho.</h1>
+                <p class="frase-destaque">Experimente o amor, o acolhimento e a transformação em nossa comunidade.</p>
+                
+                <div class="hero-botoes">
+                    <a href="#visita" class="btn btn-hero">Faça-nos uma Visita</a>
+                    <a href="#ministerios" class="btn btn-outline">Nossos Ministérios</a>
+                </div>
+            </div>
+            
+            <!-- IMAGEM: Aparecerá no celular e no PC -->
+            <div class="hero-imagem-wrapper">
+                <div class="hero-foto-overlay"></div>
+            </div>
+            
         </div>
     </section>
 
@@ -77,70 +107,110 @@
     <!-- =========================================
          SEÇÃO CULTOS E MINISTÉRIOS
          ========================================= -->
-        <div style="scroll-margin-top: 90px" id="cultos" class="ancora-cultos"></div>
-<section id="ministerios" class="ministerios">
-    <div class="container">
-        <h2 class="titulo-secao">Cultos e Ministérios</h2>
-        <div class="detalhe-linha"></div>
+    <div style="scroll-margin-top: 90px" id="ministerios" class="ancora-cultos"></div>
+    <section class="ministerios">
+        <div class="container">
+            <h2 class="titulo-secao">Cultos e Ministérios</h2>
+            <div class="detalhe-linha"></div>
 
-        <div class="cards-grid">
-            <!-- Card 1 - Culto da publico -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:church.svg" alt="Culto Publíco" class="card-icon-img">
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:church.svg" alt="Culto Público" class="card-icon-img">
+                    </div>
+                    <h3>Culto Público</h3>
+                    <p>Encontros aos domingos, focados em adoração sincera e na exposição prática da Palavra para abençoar todos os membros do seu lar.</p>
                 </div>
-                <h3>Culto Publíco</h3>
-                <p>Encontros aos domingos, focados em adoração sincera e na exposição prática da Palavra para abençoar todos os membros do seu lar.</p>
-            </div>
-            <!-- Card 2 - Culto de oracao -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:book-open.svg" alt="Culto de Oração" class="card-icon-img">
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:book-open.svg" alt="Culto de Oração" class="card-icon-img">
+                    </div>
+                    <h3>Culto De Oração</h3>
+                    <p>Encontros às quartas-feiras, onde nos reunimos como igreja para clamar, agradecer e fortalecer nossa fé por meio da oração comunitária.</p>
                 </div>
-                <h3>Culto De Oração</h3>
-                <p>Encontros as quartas-feiras, onde nos reunimos como igreja para clamar, agradecer e fortalecer nossa fé por meio da oração comunitária</p>
-            </div>
-
-            <!-- Card 3 - Ministério de Jovens -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:flame.svg" alt="Ministério de Jovens" class="card-icon-img">
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:flame.svg" alt="Ministério de Jovens" class="card-icon-img">
+                    </div>
+                    <h3>Ministério de Jovens</h3>
+                    <p>Um espaço vibrante e acolhedor para a juventude viver a fé de forma relevante, com música, comunhão e debates cristãos reais.</p>
                 </div>
-                <h3>Ministério de Jovens</h3>
-                <p>Um espaço vibrante e acolhedor para a juventude viver a fé de forma relevante, com música, comunhão e debates cristãos reais.</p>
-            </div>
-
-            <!-- Card 4 - Ministério Infantil -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:sprout.svg" alt="Ministério Infantil" class="card-icon-img">
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:sprout.svg" alt="Ministério Infantil" class="card-icon-img">
+                    </div>
+                    <h3>Ministério Infantil</h3>
+                    <p>Ambiente seguro e criativo onde as crianças aprendem os princípios bíblicos brincando. Preparamos a próxima geração com amor.</p>
                 </div>
-                <h3>Ministério Infantil</h3>
-                <p>Ambiente seguro e criativo onde as crianças aprendem os princípios bíblicos brincando. Preparamos a próxima geração com amor.</p>
-            </div>
-            <!-- Card 5 - Ministério de mulheres -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:flower.svg" alt="Ministério de Mulheres" class="card-icon-img">
+                <!-- Card 5 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:flower.svg" alt="Ministério de Mulheres" class="card-icon-img">
+                    </div>
+                    <h3>Ministério de Mulheres</h3>
+                    <p>Um espaço de acolhimento, conexão mútua e crescimento espiritual. Compartilhamos jornadas, fortalecemos laços e descobrimos o propósito de Deus para nossas vidas.</p>
                 </div>
-                <h3>Ministério de Mulheres</h3>
-                <p>Um espaço de acolhimento, conexão mútua e crescimento espiritual. Compartilhamos jornadas, fortalecemos laços e descobrimos o propósito de Deus para nossas vidas.</p>
-            </div>
-            <!-- Card 6 - Ministério de mulheres -->
-            <div class="card">
-                <div class="card-icon-container">
-                    <img src="https://api.iconify.design/lucide:shield.svg" alt="Ministério de Homens" class="card-icon-img">
+                <!-- Card 6 -->
+                <div class="card">
+                    <div class="card-icon-container">
+                        <img src="https://api.iconify.design/lucide:shield.svg" alt="Ministério de Homens" class="card-icon-img">
+                    </div>
+                    <h3>Ministério de Homens</h3>
+                    <p>Encontros focados no desenvolvimento de uma liderança íntegra e saudável. Juntos, compartilhamos desafios, fortalecemos a fé e crescemos como amigos.</p>
                 </div>
-                <h3>Ministério de Homens</h3>
-                <p>Encontros focados no desenvolvimento de uma liderança íntegra e saudável. Juntos, compartilhamos desafios, fortalecemos a fé e crescemos como amigos, pais e profissionais.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- =========================================
+         SEÇÃO CONVITE E LOCALIZAÇÃO (NOVO)
+         ========================================= -->
+    <section id="visita" class="convite-localizacao">
+        <div class="container convite-grid">
+            <div class="convite-texto">
+                <span class="tag-convite">Estamos te esperando</span>
+                <h2 class="titulo-secao" style="text-align: left; margin-bottom: 0.5rem;">Venha tomar um café com a gente.</h2>
+                <div class="detalhe-linha" style="margin-left: 0;"></div>
+                <p>Não importa como foi a sua semana ou em qual momento da jornada de fé você está, aqui você encontrará um ambiente seguro, de graça e amor para você e sua família.</p>
+                
+<div class="info-visita-cards">
+                    <div class="info-card">
+                        <h3>
+                            <img src="img/pin.png" alt="Localização" class="info-icon"> 
+                            Nossa Casa
+                        </h3>
+                        <p>Av. Sr. do Bonfim, 5221<br>Potengi - Natal/RN</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>
+                            <img src="img/data.png" alt="Horários" class="info-icon"> 
+                            Horários
+                        </h3>
+                        <p>Domingo: 09h e 18h30<br>Quarta: 20h00</p>
+                    </div>
+                </div>
+                
+                <a href="https://www.google.com/maps/place/Igreja+Batista+Jord%C3%A3o/@-5.7496594,-35.2611696,17z/data=!3m1!4b1!4m6!3m5!1s0x7b3aa4a8a2c9303:0x82c1bce1107f1aca!8m2!3d-5.7496594!4d-35.2562987!16s%2Fg%2F11b7693jc7?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-hero btn-mapa">
+                    <img src="img/pin.png" alt="Mapa" class="btn-icon"> 
+                    Ver Rota no GPS
+                </a>
+                
+            </div>
+            
+            <div class="convite-mapa">
+                <iframe class="mapa-interativo" src="https://maps.google.com/maps?q=Igreja%20Batista%20Jord%C3%A3o%20Potengi%20Natal&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
     <!-- =========================================
          SEÇÃO GALERIA DE FOTOS
          ========================================= -->
-<section class="galeria">
+    <section class="galeria">
         <div class="container">
             <h2 class="titulo-secao">Nossa Comunidade</h2>
             <div class="detalhe-linha"></div>
@@ -149,37 +219,18 @@
         <div class="carrossel-container">
             <div class="carrossel-track">
                 
-                <div class="galeria-item">
-                    <img src="img/templo1.jpeg" alt="Igreja em união">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo12.jpeg" alt="Louvor e Adoração">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo13.jpeg" alt="Jovens reunidos">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo4.jpeg" alt="Estudo Bíblico">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo5.jpeg" alt="Comunhão e Sorrisos">
-                </div>
+                <div class="galeria-item"><img src="img/templo1.jpeg" alt="Igreja em união"></div>
+                <div class="galeria-item"><img src="img/templo12.jpeg" alt="Louvor e Adoração"></div>
+                <div class="galeria-item"><img src="img/templo13.jpeg" alt="Jovens reunidos"></div>
+                <div class="galeria-item"><img src="img/templo4.jpeg" alt="Estudo Bíblico"></div>
+                <div class="galeria-item"><img src="img/templo5.jpeg" alt="Comunhão e Sorrisos"></div>
 
-                <div class="galeria-item">
-                    <img src="img/templo1.jpeg" alt="Igreja em união">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo12.jpeg" alt="Louvor e Adoração">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo13.jpeg" alt="Jovens reunidos">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo4.jpeg" alt="Estudo Bíblico">
-                </div>
-                <div class="galeria-item">
-                    <img src="img/templo5.jpeg" alt="Comunhão e Sorrisos">
-                </div>
+                <!-- Duplicado para o efeito infinito -->
+                <div class="galeria-item"><img src="img/templo1.jpeg" alt="Igreja em união"></div>
+                <div class="galeria-item"><img src="img/templo12.jpeg" alt="Louvor e Adoração"></div>
+                <div class="galeria-item"><img src="img/templo13.jpeg" alt="Jovens reunidos"></div>
+                <div class="galeria-item"><img src="img/templo4.jpeg" alt="Estudo Bíblico"></div>
+                <div class="galeria-item"><img src="img/templo5.jpeg" alt="Comunhão e Sorrisos"></div>
 
             </div>
         </div>
@@ -193,7 +244,6 @@
             <div class="footer-grid">
                 <!-- Coluna 1 -->
                 <div class="footer-col">
-                    <!-- Trocado o texto pela tag de imagem da logo -->
                     <div class="footer-logo">
                         <img src="img/Vertical 1.png" alt="Igreja Batista Jordão" class="footer-logo-img">
                     </div>
@@ -203,7 +253,7 @@
                 <div class="footer-col">
                     <h4>Contato</h4>
                     
-                    <a href="https://maps.app.goo.gl/Bu9MWTBZjgy5DrxY9" target="_blank" class="footer-contact-link">
+                    <a href="https://www.google.com/maps/place/Igreja+Batista+Jord%C3%A3o/@-5.7496594,-35.2611696,17z/data=!3m1!4b1!4m6!3m5!1s0x7b3aa4a8a2c9303:0x82c1bce1107f1aca!8m2!3d-5.7496594!4d-35.2562987!16s%2Fg%2F11b7693jc7?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="footer-contact-link">
                         <p>
                             <img src="img/pin.png" alt="Localização" class="footer-icon"> 
                             <span>Av. Sr. do Bonfim, 5221 - Potengi</span>
@@ -211,39 +261,22 @@
                     </a>
 
                     <a href="https://wa.me/5511999999999" target="_blank" class="footer-contact-link">
-                        <p>
-                            <img src="img/contato.png" alt="Telefone" class="footer-icon"> 
-                            <span>(11) 99999-9999</span>
-                        </p>
+                        <p><img src="img/contato.png" alt="Telefone" class="footer-icon"> <span>(11) 99999-9999</span></p>
                     </a>
 
                     <a href="mailto:contato@batistajordao.com" class="footer-contact-link">
-                        <p>
-                            <img src="img/email.png" alt="E-mail" class="footer-icon"> 
-                            <span>contato@batistajordao.com</span>
-                        </p>
+                        <p><img src="img/email.png" alt="E-mail" class="footer-icon"> <span>contato@batistajordao.com</span></p>
                     </a>
                 </div>
 
                 <!-- Coluna 3 -->
                 <div class="footer-col">
                     <h4>Nossos Encontros</h4>
-                    
-                    <p class="schedule-item">
-                        <img src="img/data.png" alt="Calendário" class="schedule-icon">
-                        <span>Domingo: 09h e 18h30</span>
-                    </p>
-                    
-                    <p class="schedule-item">
-                        <img src="img/data.png" alt="Calendário" class="schedule-icon">
-                        <span>Quarta-feira: 20h00</span>
-                    </p>
-                    
-                    <p class="schedule-item">
-                        <img src="img/data.png" alt="Calendário" class="schedule-icon">
-                        <span>Sábado (Jovens): 19h30</span>
-                    </p>
+                    <p class="schedule-item"><img src="img/data.png" alt="Calendário" class="schedule-icon"> <span>Domingo: 09h e 18h30</span></p>
+                    <p class="schedule-item"><img src="img/data.png" alt="Calendário" class="schedule-icon"> <span>Quarta-feira: 20h00</span></p>
+                    <p class="schedule-item"><img src="img/data.png" alt="Calendário" class="schedule-icon"> <span>Sábado (Jovens): 19h30</span></p>
                 </div>      
+                
                 <!-- Coluna 4 -->
                 <div class="footer-col">
                     <h4>Conecte-se</h4>
@@ -252,18 +285,18 @@
                             <img src="https://unpkg.com/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="social-icon">
                             <span>Instagram</span>
                         </a>
-                        
                         <a href="https://www.youtube.com/@igrejabatistajordao700" target="_blank" class="social-btn">
                             <img src="https://unpkg.com/simple-icons@v9/icons/youtube.svg" alt="YouTube" class="social-icon">
                             <span>YouTube</span>
                         </a>
                     </div>
-</div>
-
-        </div>
+                </div>
+            </div>
+            
             <div class="copyright">
                 &copy; 2026 Igreja Batista Jordão. Todos os direitos reservados.
             </div>
+        </div>
     </footer>
 
     <!-- ARQUIVO JAVASCRIPT EXTERNO -->

@@ -1,4 +1,4 @@
-    /* =========================================
+/* =========================================
    1. VARIÁVEIS DE COR E TIPOGRAFIA
    ========================================= */
 :root {
@@ -16,17 +16,11 @@
 }
 
 /* =========================================
-   2. RESET E ESTILOS GLOBAIS (Mobile-First)
+   2. RESET E ESTILOS GLOBAIS
    ========================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-    scroll-behavior: smooth; /* Rolagem suave nativa para âncoras */
-}
+html { scroll-behavior: smooth; }
 
 body {
     font-family: var(--fonte-principal);
@@ -36,45 +30,15 @@ body {
     overflow-x: hidden;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
 
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* Classes Utilitárias */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
-}
-
-.btn {
-    display: inline-block;
-    background-color: var(--cor-destaque);
-    color: #ffffff;
-    padding: 0.8rem 1.8rem;
-    font-weight: 700;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.btn:hover {
-    background-color: #a88a5e;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(192, 160, 112, 0.4);
 }
 
 .titulo-secao {
@@ -92,11 +56,50 @@ img {
 }
 
 /* =========================================
-   3. CABEÇALHO (HEADER) E NAVEGAÇÃO
+   3. TOPBAR (NOVO)
+   ========================================= */
+.topbar {
+    background-color: var(--cor-primaria);
+    color: var(--cor-fundo-claro);
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+    display: none; /* Esconde no mobile para focar no conteúdo principal */
+}
+
+.topbar p { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    margin: 0; 
+    opacity: 0.9; 
+}
+.topbar-icon { 
+    width: 16px; 
+    height: 16px; 
+    object-fit: contain; 
+    /* Caso a topbar seja escura e o ícone original seja preto, 
+       esta linha abaixo inverte a cor da imagem para branco: */
+}
+@media (min-width: 992px) {
+    .topbar { display: block; }
+}
+
+.topbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar p { margin: 0; opacity: 0.9; }
+.topbar-link { color: var(--cor-destaque); font-weight: bold; }
+.topbar-link:hover { color: #ffffff; text-decoration: underline; }
+
+/* =========================================
+   4. CABEÇALHO (HEADER) E NAVEGAÇÃO
    ========================================= */
 header {
     background-color: var(--cor-fundo-claro);
-    box-shadow: 0 2px 10px rgba(0,0,0,00.5rem);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -107,16 +110,13 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
-    flex-wrap: wrap;
+    position: relative;
 }
 
-.logo {
-    width: 200px;
-
-}
-
+.logo img { width: 200px; }
 
 .hamburger {
+    margin: 20px;
     font-size: 1.8rem;
     color: var(--cor-primaria);
     cursor: pointer;
@@ -125,113 +125,176 @@ header {
     display: block;
 }
 
-.nav-menu {
-    display: none; /* Escondido por padrão no mobile */
-    width: 100%;
-    flex-direction: row;
+.nav-menu { display: none; width: 100%; }
+
+.btn, .btn-bemvindo {
+    display: inline-block;
+    background-color: var(--cor-destaque);
+    color: #ffffff;
+    padding: 0.8rem 1.8rem;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
     text-align: center;
-    padding-top: 1rem;
-    animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Classe ativada pelo JavaScript */
-.nav-menu.active {
-    display: flex;
+.btn:hover, .btn-bemvindo:hover {
+    background-color: #a88a5e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(192, 160, 112, 0.4);
 }
 
-.nav-menu li {
-    margin: 0.5rem 0;
+/* Menu Mobile */
+@media (max-width: 991px) {
+    .nav-menu.active,
+    .nav-menu.show,
+    .nav-menu[style*="display: flex"] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        width: 100%;
+        background-color: #ffffff;
+        position: absolute;
+        top: 100%; left: 0;
+        padding: 1.5rem 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        gap: 1rem;
+        z-index: 999;
+    }
+    .nav-menu ul { display: flex; flex-direction: column !important; align-items: center; width: 100%; padding: 0; margin: 0; gap: 1rem; }
+    .nav-menu li { width: 100%; text-align: center; }
+    .nav-menu a { font-size: 18px; font-weight: 700; color: var(--cor-primaria); display: block; padding: 0.6rem; width: 100%; }
+    .btn-bemvindo { width: 85%; margin-top: 0.5rem; }
 }
 
-.nav-menu ul {
-    display: flex;
-    flex-direction: row; /* Coloca os links (Início, Sobre...) lado a lado */
-    list-style: none;    /* Remove as bolinhas da lista se houver */
-    padding: 0;
-    margin: 0;
-}
-
-.nav-menu a {
-    font-size: 20px;
-    font-weight: 700px;
-    color: var(--cor-primaria);
-    transition: color 0.3s ease;
-    display: block;
-    padding: 0.5rem;
-}
-
-.nav-menu a:hover {
-    color: var(--cor-destaque);
-}
-
-.btn-bemvindo {
-    margin-top: 1rem;
-}
-
-/* Desktop Header */
+/* Menu Desktop */
 @media (min-width: 992px) {
     .hamburger { display: none; }
-    .nav-menu {
-        display: flex !important;
-        width: auto;
-        flex-direction: row;
-        align-items: center;
-        padding-top: 0;
-    }
-    .nav-menu li { margin: 0 1.5rem; }
-    .btn-bemvindo { margin-top: 0; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    .nav-menu { display: flex !important; width: auto; flex-direction: row; align-items: center; }
+    .nav-menu ul { display: flex; flex-direction: row; gap: 1.5rem; }
+    .nav-menu a { font-size: 19px; font-weight: 700; padding: 0.5rem 1rem; }
 }
 
 /* =========================================
-   4. SEÇÃO HERO (TOPO IMPACTANTE)
+   5. SEÇÃO HERO (RESPEITANDO SEU PEDIDO)
    ========================================= */
 .hero {
     position: relative;
-    height: 80vh;
-    min-height: 500px;
+    background-color: var(--cor-primaria);
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(rgba(27, 58, 87, 0.85), rgba(27, 58, 87, 0.85)), 
-                url('https://images.unsplash.com/photo-1529070538774-1843cb1665e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    padding: 1.5rem 0;
+    scroll-margin-top: 90px;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 10;
-    color: var(--cor-fundo-claro);
-    padding: 0 1rem;
+.hero-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    width: 100%;
 }
 
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+/* ESCONDE O TEXTO NO CELULAR */
+.hero-texto {
+    display: none; 
 }
 
-.hero .frase-destaque {
-    font-family: var(--fonte-secundaria);
-    font-style: italic;
-    color: var(--cor-destaque);
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+/* IMAGEM NO CELULAR (EXIBE A FOTO COMPLETA) */
+.hero-imagem-wrapper {
+    display: block !important;
+    width: 100%;
+    height: 52vw; /* Altura proporcional para mobile */
+    background-image: url('../img/topo2.png');
+    background-position: center center; 
+    background-size: contain; 
+    background-repeat: no-repeat;
+    border-radius: 12px;
 }
 
-@media (min-width: 768px) {
-    .hero h1 { font-size: 4rem; }
-    .hero .frase-destaque { font-size: 1.6rem; }
+/* VOLTA AO NORMAL NO COMPUTADOR (TEXTO + IMAGEM LADO A LADO) */
+@media (min-width: 992px) {
+    .hero {
+        min-height: 85vh;
+        padding: 4rem 0; 
+    }
+    .hero-container {
+        grid-template-columns: 1fr 1fr; /* Divide meio a meio */
+        gap: 3rem;
+        align-items: center;
+    }
+    
+    /* O texto aparece no Desktop */
+    .hero-texto { 
+        display: block; 
+        color: #ffffff;
+    }
+    .hero-tagline { 
+        display: inline-block;
+        background-color: rgba(192, 160, 112, 0.2);
+        color: var(--cor-destaque);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-family: var(--fonte-secundaria);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 1.5rem;
+    }
+    .hero .frase-destaque { 
+        font-size: 1.2rem;
+        color: var(--cor-areia);
+        margin-bottom: 2rem;
+    }
+    
+    .hero-botoes {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-hero {
+        background-color: var(--cor-destaque);
+        color: var(--cor-primaria);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    .btn-hero:hover { background-color: #d4b993; transform: translateY(-3px); }
+
+    .btn-outline {
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    .btn-outline:hover { background-color: #ffffff; color: var(--cor-primaria); }
+
+    /* A Imagem no Desktop fica bonita cobrindo o card dela */
+
+    .hero-imagem-wrapper {
+        height: 500px;
+        background-size: cover;
+        background-position: right center; /* <--- Alinha pela direita, mostrando as pessoas e escondendo o texto da imagem */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
 }
 
 /* =========================================
-   5. SEÇÃO SOBRE NÓS
+   6. SEÇÃO SOBRE NÓS
    ========================================= */
 .sobre {
     padding: 5rem 0;
@@ -239,78 +302,51 @@ header {
     scroll-margin-top: 90px;
 }
 
-.sobre-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.sobre-texto p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    color: #555;
-}
+.sobre-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+.sobre-texto p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #555; }
 
 .simbolo-significado {
     background-color: #ffffff;
     padding: 2rem;
     border-left: 4px solid var(--cor-destaque);
     box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    /* 👇 Adicionado para deixar o movimento suave */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
-.simbolo-significado h3 {
-    font-family: var(--fonte-secundaria);
-    color: var(--cor-primaria);
-    margin-bottom: 1rem;
+.simbolo-significado:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
+.simbolo-significado h3 { font-family: var(--fonte-secundaria); color: var(--cor-primaria); margin-bottom: 1rem; }
 
 @media (min-width: 992px) {
     .sobre-grid { grid-template-columns: 1fr 1fr; }
-    .titulo-secao { text-align: left; }
-    .detalhe-linha { margin-left: 0; }
+    .sobre .titulo-secao { text-align: left; }
+    .sobre .detalhe-linha { margin-left: 0; }
 }
 
 /* =========================================
-   6. CULTOS E MINISTÉRIOS (CARDS)
+   7. CULTOS E MINISTÉRIOS (CARDS)
    ========================================= */
-/* --- SEÇÃO DE MINISTÉRIOS GERAL --- */
 .ministerios {
     padding: 5rem 0;
     background-color: #ffffff;
     scroll-margin-top: 90px;
 }
 
-.ministerios .titulo-secao {
-    text-align: center;
-}
+.cards-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 
-.ministerios .detalhe-linha {
-    margin: 0 auto 3rem auto;
-}
-
-/* Grelha de Cards */
-.cards-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-/* --- ESTILIZAÇÃO DO CARD PREMIUM --- */
 .card {
     background-color: var(--cor-areia);
     padding: 3rem 2rem;
     border-radius: 12px;
     text-align: center;
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex; flex-direction: column; align-items: center;
 }
 
-/* Efeito ao passar o mouse no Card */
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 35px rgba(27, 58, 87, 0.08);
@@ -318,141 +354,141 @@ header {
     border-color: rgba(192, 160, 112, 0.2);
 }
 
-/* Círculo que envolve o ícone */
 .card-icon-container {
-    width: 70px;
-    height: 70px;
+    width: 70px; height: 70px;
     background-color: rgba(27, 58, 87, 0.05);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    transition: background-color 0.4s ease;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; transition: background-color 0.4s ease;
 }
 
-.card:hover .card-icon-container {
-    background-color: var(--cor-primaria);
-}
+.card:hover .card-icon-container { background-color: var(--cor-primaria); }
 
-/* Imagem do Ícone e Filtro de Cor Dourada */
 .card-icon-img {
-    height: 35px;
-    width: 35px;
-    object-fit: contain;
+    height: 35px; width: 35px; object-fit: contain;
     transition: filter 0.4s ease;
-    /* Pinta os ícones originalmente pretos de DOURADO automaticamente */
     filter: invert(68%) sepia(16%) saturate(1065%) hue-rotate(354deg) brightness(88%) contrast(86%);
 }
+.card:hover .card-icon-img { filter: invert(1) brightness(2) !important; }
 
-/* Quando passa o mouse no card, o ícone fica totalmente BRANCO */
-.card:hover .card-icon-img {
-    filter: invert(1) brightness(2) !important;
-}
+.card h3 { color: var(--cor-primaria); font-size: 1.4rem; margin-bottom: 1rem; font-family: var(--fonte-secundaria); font-weight: 700; }
+.card p { color: #666666; font-size: 0.95rem; line-height: 1.6; }
 
-/* Título e Texto do Card */
-.card h3 {
-    color: var(--cor-primaria);
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    font-family: var(--fonte-secundaria);
-    font-weight: 700;
-}
+@media (min-width: 768px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
 
-.card p {
-    color: #666666;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* Responsividade: Transforma em 3 colunas no computador */
-@media (min-width: 768px) {
-    .cards-grid { 
-        grid-template-columns: repeat(3, 1fr); 
-    }
-}/* =========================================
-   7. GALERIA
+/* =========================================
+   8. CONVITE E LOCALIZAÇÃO (NOVO)
    ========================================= */
-/* --- SEÇÃO GALERIA --- */
-.galeria {
-    padding: 5rem 0;
-    background-color: var(--cor-fundo-claro);
+.convite-localizacao {
+    padding: 6rem 0;
+    background-color: var(--cor-areia);
     scroll-margin-top: 90px;
-    overflow: hidden; /* Esconde as fotos que saem da tela nas laterais */
 }
 
-/* Título centralizado pelo CSS */
-.galeria .titulo-secao {
-    text-align: center;
+.info-card h3 { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    color: var(--cor-primaria); 
+    font-size: 1.1rem; 
+    margin-bottom: 0.5rem; 
 }
 
-.galeria .detalhe-linha {
-    margin: 0 auto 3rem auto;
+.info-icon { 
+    width: 20px; 
+    height: 20px; 
+    object-fit: contain; 
 }
 
-/* Janela visível do carrossel */
-.carrossel-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 1rem 0;
-}
-
-/* Esteira que segura todas as fotos lado a lado e se move */
-.carrossel-track {
-    display: flex;
-    width: max-content; /* Permite que a linha se estenda para fora da tela */
-    gap: 1.5rem; /* Espaço entre as fotos */
-    animation: rolagem-infinita 50s linear infinite; /* Move sozinho. Altere '25s' para ir mais rápido ou devagar */
+/* Alinhamento do ícone dentro do botão "Ver Rota" */
+.btn-mapa { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 10px; 
 }
 
 
-
-/* Definições de tamanho de cada foto individual */
-.galeria-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px; /* Bordas arredondadas modernas */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    /* Tamanho fixo para os itens do carrossel ficarem bonitos */
-    width: 280px;
-    height: 210px; /* Mantém a proporção de aspecto próxima de 4/3 */
-    flex-shrink: 0; /* Impede o flexbox de esmagar as fotos */
+.btn-icon { 
+    width: 20px; 
+    height: 20px; 
+    object-fit: contain;
 }
 
-.galeria-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+.convite-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+
+.tag-convite {
+    display: inline-block;
+    color: var(--cor-destaque);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
 }
 
-/* Zoom suave quando passa o mouse individualmente na foto */
-.galeria-item:hover img {
-    transform: scale(1.08);
+.convite-texto p { font-size: 1.1rem; color: #555; margin-bottom: 2rem; }
+
+.info-visita-cards {
+    display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;
 }
 
-/* Ajustes para telas maiores (tamanho das fotos aumenta no computador) */
+.info-card {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--cor-destaque);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    /* 👇 Adicionado para deixar o movimento suave */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.info-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.info-card h3 { color: var(--cor-primaria); font-size: 1.1rem; margin-bottom: 0.5rem; }
+.info-card p { margin-bottom: 0; font-size: 1rem; }
+
+.convite-mapa { width: 100%; height: 400px; }
+
 @media (min-width: 992px) {
-    .galeria-item {
-        width: 360px;
-        height: 270px;
-    }
-}
-
-/* --- ANIMAÇÃO MATEMÁTICA DO LOOP INFINITO --- */
-@keyframes rolagem-infinita {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        /* Move exatamente metade da largura total da esteira (por causa dos itens duplicados) */
-        transform: translateX(calc(-50% - 0.75rem)); 
-    }
+    .convite-grid { grid-template-columns: 1fr 1fr; }
+    .info-visita-cards { flex-direction: row; }
+    .convite-mapa { height: 500px; }
 }
 
 /* =========================================
-   8. RODAPÉ (FOOTER)
+   9. GALERIA (CARROSSEL INFINITO)
+   ========================================= */
+.galeria {
+    padding: 5rem 0;
+    background-color: var(--cor-fundo-claro);
+    overflow: hidden;
+}
+
+.carrossel-container { width: 100%; overflow: hidden; position: relative; padding: 1rem 0; }
+.carrossel-track {
+    display: flex; width: max-content; gap: 1.5rem;
+    animation: rolagem-infinita 50s linear infinite;
+}
+
+.galeria-item {
+    position: relative; overflow: hidden; border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    width: 280px; height: 210px; flex-shrink: 0;
+}
+.galeria-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.galeria-item:hover img { transform: scale(1.08); }
+
+@media (min-width: 992px) { .galeria-item { width: 360px; height: 270px; } }
+
+@keyframes rolagem-infinita {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 0.75rem)); }
+}
+
+/* =========================================
+   10. RODAPÉ (FOOTER)
    ========================================= */
 footer {
     background-color: var(--cor-primaria);
@@ -460,143 +496,54 @@ footer {
     padding: 4rem 0 2rem 0;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+.footer-col h4 { font-family: var(--fonte-secundaria); color: var(--cor-destaque); font-size: 1.2rem; margin-bottom: 1.5rem; }
+.footer-contact-link { text-decoration: none; color: inherit; display: block; }
+.footer-contact-link:hover p { color: var(--cor-destaque); transition: color 0.3s ease; }
+
+.footer-col p, .schedule-item {
+    display: flex; align-items: center; gap: 10px;           
+    color: var(--cor-detalhes); font-size: 1.1rem; margin-bottom: 0.8rem;
 }
 
-.footer-col h4 {
-    font-family: var(--fonte-secundaria);
-    color: var(--cor-destaque);
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
+.footer-icon, .schedule-icon { height: 1.1em; width: 20px; object-fit: contain; }
 
-.footer-contact-link {
-    text-decoration: none;
-    color: inherit; /* Faz o link herdar a cor padrão do texto do rodapé */
-    display: block;
-}
+.social-links { display: flex; flex-direction: column; gap: 0.8rem; }
+.social-btn { display: flex; align-items: center; gap: 10px; color: var(--cor-detalhes); transition: color 0.3s ease; }
+.social-btn:hover { color: var(--cor-destaque); }
+.social-icon { height: 1.1em; width: 1.1em; object-fit: contain; filter: invert(1) brightness(2); }
 
-/* Opcional: Efeito visual quando o usuário passar o mouse por cima do link */
-.footer-contact-link:hover p {
-    color: var(--cor-destaque); /* O texto e o alinhamento brilham na cor de destaque ao passar o mouse */
-    transition: color 0.3s ease;
-}
-/* Mantém o seu código anterior para os ícones */
-.footer-col p {
-    display: flex;
-    align-items: center; 
-    gap: 10px;           
-    color: var(--cor-detalhes);
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    cursor: pointer; /* Transforma a setinha do mouse na "mãozinha" de clique */
-}
-
-/* Controla o tamanho da imagem para seguir a fonte */
-.footer-icon {
-    height: 1.1em;      
-    width: 20px;        
-    object-fit: contain;
-}
-
-.footer-col a {
-    color: var(--cor-detalhes);
-    margin-bottom: 0.8rem;
-    display: block;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.footer-col a:hover {
-    color: var(--cor-destaque);
-}
-
-
-
-/* Container das redes sociais */
-.social-links {
-    display: flex;
-    flex-direction: column; 
-    gap: 0.8rem;
-}
-
-/* Alinhamento do link */
-.social-btn {
-    display: flex !important;
-    align-items: center;    
-    gap: 10px;              
-    color: var(--cor-detalhes);
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.social-btn:hover {
-    color: var(--cor-destaque);
-}
-
-/* Controle e cor do ícone */
-.social-icon {
-    height: 1.1em;
-    width: 1.1em;
-    object-fit: contain;
-    display: inline-block;
-    /* O segredo está aqui: transforma o ícone preto em BRANCO */
-    filter: invert(1) brightness(2); 
-}
-
-/* Container da logo no rodapé */
-.footer-logo {
-    margin-bottom: 1.2rem;
-    display: flex;
-    justify-content: flex-start; /* Alinha a logo à esquerda */
-}
-
-/* Controla o tamanho e proporção da imagem da logo */
-.footer-logo-img {
-    height: 140px;          /* Altura ideal para a logo aparecer bem no rodapé */
-    width: auto;           /* Mantém a proporção correta para não amassar a logo */
-    object-fit: contain;   /* Garante que a imagem não sofra distorções */
-}
-/* Container do parágrafo: Alinha o ícone de data perfeitamente ao lado esquerdo do texto */
-.schedule-item {
-    display: flex !important;
-    align-items: center;    /* Centraliza verticalmente o ícone com a linha do texto */
-    gap: 10px;              /* Cria o espaço ideal entre o seu ícone e o texto */
-    color: var(--cor-detalhes);
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
-}
-
-/* Controla o tamanho do seu ícone 'img/data.png' e altera a cor para branco */
-.schedule-icon {
-    height: 1.1em;          /* Faz o ícone acompanhar o tamanho exato da sua fonte */
-    width: 1.1em;           /* Mantém a proporção quadrada perfeita */
-    object-fit: contain;
-    display: inline-block;
-    
-    /* 🌟 O SEGREDO: Transforma o seu ícone escuro em BRANCO para destacar no rodapé */
-}
+.footer-logo { margin-bottom: 1.2rem; display: flex; justify-content: flex-start; }
+.footer-logo-img { height: 140px; width: auto; object-fit: contain; }
 
 .copyright {
-    display: block;       /* Força o elemento a se comportar como um bloco completo */
-    width: 100%;          /* Garante que ele ocupe toda a largura da tela */
-    text-align: center;   /* Alinha o texto exatamente no centro horizontal */
-    padding-top: 2rem;
-    margin: 0 auto;       /* Centraliza o bloco na tela caso haja uma largura máxima definida */
+    text-align: center; padding-top: 2rem; margin: 0 auto;       
     border-top: 1px solid rgba(165, 201, 232, 0.2);
-    color: var(--cor-detalhes);
-    font-size: 0.9rem;
+    color: var(--cor-detalhes); font-size: 0.9rem;
 }
 
-@media (min-width: 768px) {
-    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 992px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+
+
+/* Estilo inicial do mapa */
+iframe {
+  border-radius: 12px; /* Deixa as bordas arredondadas */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Dá uma profundidade moderna */
+  filter: grayscale(30%) sepia(10%) contrast(110%); /* Suaviza as cores para combinar com o bege */
+}
+.mapa-interativo {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra levinha */
+  filter: grayscale(20%) sepia(15%); /* Deixa a cor mais suave combinando com o bege */
+  transition: all 0.3s ease-in-out; /* Essa é a mágica que deixa a animação suave! */
+  cursor: pointer; /* Muda a setinha do mouse para a "mãozinha" */
 }
 
-@media (min-width: 992px) {
-    .footer-grid { grid-template-columns: repeat(4, 1fr); }
+/* O que acontece quando passa o mouse por cima (Interação) */
+.mapa-interativo:hover {
+  transform: translateY(-8px); /* Dá uma "levantadinha" no mapa igual um card */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* A sombra aumenta, dando profundidade */
+  filter: grayscale(0%) sepia(0%); /* As cores originais do Google Maps voltam para chamar a atenção */
 }
