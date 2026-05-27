@@ -811,3 +811,21 @@ iframe {
   box-shadow: 0 15px 30px rgba(0,0,0,0.15); /* A sombra aumenta, dando profundidade */
   filter: grayscale(0%) sepia(0%); /* As cores originais do Google Maps voltam para chamar a atenção */
 }
+
+/* =========================================
+   11. EFEITO TIPO APP (SCROLL REVEAL GLOBAIS)
+   ========================================= */
+.efeito-surgir {
+    opacity: 0;
+    transform: translateY(60px); /* 👈 Aumentei para 60px para o movimento ficar mais visível */
+    
+    /* 👇 Aumentei o tempo de 0.8s para 1.2s (fica bem mais cinematográfico e lento) */
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform; 
+}
+
+.efeito-surgir.visivel {
+    opacity: 1;
+    transform: translateY(0); 
+}

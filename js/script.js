@@ -106,3 +106,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 });
+
+/// =========================================
+    // 4. ANIMAÇÃO DE SURGIR TIPO APP (GLOBAL: PC E MOBILE)
+    // =========================================
+    
+    const elementosSurgir = document.querySelectorAll('.hero-texto, .hero-imagem-wrapper, .titulo-secao, .sobre-texto, .simbolo-significado, .info-card, .convite-texto, .convite-mapa, .footer-col');
+
+    if (elementosSurgir.length > 0) {
+        // Injeta a classe que esconde os elementos primeiro
+        elementosSurgir.forEach(el => el.classList.add('efeito-surgir'));
+
+        const observadorSurgir = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    
+                    // 👇 O TRUQUE: Um pequeno atraso obriga o navegador a respeitar a animação.
+                    // O `+ (index * 100)` ainda faz os itens aparecerem em cascata (um após o outro)!
+                    setTimeout(() => {
+                        entry.target.classList.add('visivel'); 
+                    }, 150 + (index * 100)); 
+                    
+                    observadorSurgir.unobserve(entry.target); 
+                }
+            });
+        }, {
+            threshold: 0.1, 
+            rootMargin: "0px 0px -40px 0px" 
+        });
+
+        elementosSurgir.forEach(el => observadorSurgir.observe(el));
+    }
