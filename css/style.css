@@ -361,14 +361,14 @@ header {
 }
 
 .hero-imagem-wrapper {
-  display: block;
-  width: 100%;
-  height: 60vw;
-  background-image: url("../img/topo2.png");
-  background-position: center center;
-  background-size: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: block;
+    width: 100%;
+    height: 55vw; /* Altura ajustada para manter a proporção original */
+    background-image: url('../img/topo2.png');
+    background-position: center center; 
+    background-size: contain; /* 👈 ISSO RESOLVE O CORTE: Exibe a imagem 100% inteira */
+    background-repeat: no-repeat;
+    border-radius: 12px;
 }
 
 @keyframes ondaSuave {
